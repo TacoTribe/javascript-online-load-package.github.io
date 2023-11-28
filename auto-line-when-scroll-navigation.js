@@ -1,20 +1,41 @@
-document.addEventListener("DOMContentLoaded", function () {
-  var navigation = document.getElementById("stickyNav");
-  var content = document.querySelector(".content");
-  var navOffset = navigation.offsetTop;
+  document.addEventListener("DOMContentLoaded", function () {
+    // Sticky navigation for desktop
+    var navigationDesktop = document.getElementById("stickyNav");
+    var contentDesktop = document.querySelector(".content");
+    var navOffsetDesktop = navigationDesktop.offsetTop;
 
-  function updateStickyNavigation() {
-    var isSticky = window.pageYOffset > navOffset;
+    function updateStickyNavigationDesktop() {
+      var isStickyDesktop = window.pageYOffset > navOffsetDesktop;
 
-    navigation.classList.toggle("sticky", isSticky);
-    content.style.marginTop = isSticky ? navigation.offsetHeight + "px" : 0;
-  }
+      navigationDesktop.classList.toggle("sticky", isStickyDesktop);
+      contentDesktop.style.marginTop = isStickyDesktop ? navigationDesktop.offsetHeight + "px" : 0;
+    }
 
-  function handleScroll() {
-    updateStickyNavigation();
-  }
+    function handleScrollDesktop() {
+      updateStickyNavigationDesktop();
+    }
 
-  window.addEventListener("scroll", handleScroll);
+    window.addEventListener("scroll", handleScrollDesktop);
 
-  updateStickyNavigation();
-});
+    updateStickyNavigationDesktop();
+
+    // Sticky navigation for mobile
+    var navigationMobile = document.getElementById("stickyNavMobile");
+    var contentMobile = document.querySelector(".content");
+    var navOffsetMobile = navigationMobile.offsetTop;
+
+    function updateStickyNavigationMobile() {
+      var isStickyMobile = window.pageYOffset > navOffsetMobile;
+
+      navigationMobile.classList.toggle("sticky", isStickyMobile);
+      contentMobile.style.marginTop = isStickyMobile ? navigationMobile.offsetHeight + "px" : 0;
+    }
+
+    function handleScrollMobile() {
+      updateStickyNavigationMobile();
+    }
+
+    window.addEventListener("scroll", handleScrollMobile);
+
+    updateStickyNavigationMobile();
+  });
