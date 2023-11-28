@@ -1,41 +1,28 @@
   document.addEventListener("DOMContentLoaded", function () {
-    // Sticky navigation for desktop
+    // Sticky Nav for Desktop
     var navigationDesktop = document.getElementById("stickyNav");
     var contentDesktop = document.querySelector(".content");
     var navOffsetDesktop = navigationDesktop.offsetTop;
 
-    function updateStickyNavigationDesktop() {
-      var isStickyDesktop = window.pageYOffset > navOffsetDesktop;
-
-      navigationDesktop.classList.toggle("sticky", isStickyDesktop);
-      contentDesktop.style.marginTop = isStickyDesktop ? navigationDesktop.offsetHeight + "px" : 0;
-    }
-
-    function handleScrollDesktop() {
-      updateStickyNavigationDesktop();
-    }
-
-    window.addEventListener("scroll", handleScrollDesktop);
-
-    updateStickyNavigationDesktop();
-
-    // Sticky navigation for mobile
+    // Sticky Nav for Mobile
     var navigationMobile = document.getElementById("stickyNavMobile");
     var contentMobile = document.querySelector(".content");
     var navOffsetMobile = navigationMobile.offsetTop;
 
-    function updateStickyNavigationMobile() {
-      var isStickyMobile = window.pageYOffset > navOffsetMobile;
+    function updateStickyNavigation(navigation, content, navOffset) {
+      var isSticky = window.pageYOffset > navOffset;
 
-      navigationMobile.classList.toggle("sticky", isStickyMobile);
-      contentMobile.style.marginTop = isStickyMobile ? navigationMobile.offsetHeight + "px" : 0;
+      navigation.classList.toggle("sticky", isSticky);
+      content.style.marginTop = isSticky ? navigation.offsetHeight + "px" : 0;
     }
 
-    function handleScrollMobile() {
-      updateStickyNavigationMobile();
+    function handleScroll() {
+      updateStickyNavigation(navigationDesktop, contentDesktop, navOffsetDesktop);
+      updateStickyNavigation(navigationMobile, contentMobile, navOffsetMobile);
     }
 
-    window.addEventListener("scroll", handleScrollMobile);
+    window.addEventListener("scroll", handleScroll);
 
-    updateStickyNavigationMobile();
+    updateStickyNavigation(navigationDesktop, contentDesktop, navOffsetDesktop);
+    updateStickyNavigation(navigationMobile, contentMobile, navOffsetMobile);
   });
