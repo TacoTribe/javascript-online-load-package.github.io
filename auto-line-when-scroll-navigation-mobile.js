@@ -10,8 +10,8 @@ document.addEventListener("DOMContentLoaded", function () {
     content.style.marginTop = isSticky ? navigation.offsetHeight + "px" : 0;
   }
 
-  // Menggunakan fungsi debounce untuk mengurangi frekuensi pemanggilan handleScroll
   var debounceTimer;
+
   function debounce(func, wait) {
     clearTimeout(debounceTimer);
     debounceTimer = setTimeout(func, wait);
@@ -21,8 +21,13 @@ document.addEventListener("DOMContentLoaded", function () {
     debounce(updateStickyNavigation, 10);
   }
 
-  // Menggunakan passive:true untuk meningkatkan performa scroll
-  window.addEventListener("scroll", handleScroll, { passive: true });
+  function handleResize() {
+    navOffset = navigation.offsetTop; // Perbarui offset setelah perubahan ukuran jendela
+    updateStickyNavigation();
+  }
 
-  updateStickyNavigation(); // Pemanggilan awal agar kondisi awal di-handle
+  window.addEventListener("scroll", handleScroll, { passive: true });
+  window.addEventListener("resize", handleResize);
+
+  updateStickyNavigation();
 });
