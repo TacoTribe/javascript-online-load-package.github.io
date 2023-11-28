@@ -29,11 +29,13 @@ document.addEventListener('DOMContentLoaded', function () {
   toggleMode('light');
 });
 
-// Tambahkan fungsi toggleMode untuk span
-document.getElementById('darkModeSwitch').addEventListener('click', function () {
-  toggleMode('dark');
+// Tambahkan event listener untuk kedua span dengan fungsi yang sama
+document.getElementById('darkModeSwitch').addEventListener('click', function (event) {
+  toggleMode('toggle');
+  event.stopPropagation(); // Menghentikan propagasi agar klik tidak mencapai elemen a
 });
 
-document.getElementById('whiteModeSwitch').addEventListener('click', function () {
-  toggleMode('light');
+document.getElementById('whiteModeSwitch').addEventListener('click', function (event) {
+  toggleMode('toggle');
+  event.stopPropagation(); // Menghentikan propagasi agar klik tidak mencapai elemen a
 });
