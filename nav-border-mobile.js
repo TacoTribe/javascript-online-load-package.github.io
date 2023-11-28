@@ -1,5 +1,5 @@
     // Mendapatkan elemen section
-    var section = document.querySelector(".navigation");
+    var section = document.getElementById("stickyNavMobile");
 
     // Menambahkan event listener untuk mendeteksi scroll
     window.addEventListener("scroll", function() {
