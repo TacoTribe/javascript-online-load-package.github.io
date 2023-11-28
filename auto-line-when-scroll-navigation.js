@@ -1,17 +1,20 @@
 document.addEventListener("DOMContentLoaded", function () {
   var navigation = document.getElementById("stickyNav");
+  var content = document.querySelector(".content");
   var navOffset = navigation.offsetTop;
 
-  function handleScroll() {
-    if (window.pageYOffset > navOffset) {
-      navigation.classList.add("sticky");
-    } else {
-      navigation.classList.remove("sticky");
-    }
+  function updateStickyNavigation() {
+    var isSticky = window.pageYOffset > navOffset;
 
-    var content = document.querySelector(".content");
-    content.style.marginTop = navigation.classList.contains("sticky") ? navigation.offsetHeight + "px" : 0;
+    navigation.classList.toggle("sticky", isSticky);
+    content.style.marginTop = isSticky ? navigation.offsetHeight + "px" : 0;
+  }
+
+  function handleScroll() {
+    updateStickyNavigation();
   }
 
   window.addEventListener("scroll", handleScroll);
+
+  updateStickyNavigation();
 });
