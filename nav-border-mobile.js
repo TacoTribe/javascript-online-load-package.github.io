@@ -1,5 +1,5 @@
     // Mendapatkan elemen section
-    var section = document.querySelectorAll(".navigation");
+    var section = document.querySelector(".navigation");
 
     // Menambahkan event listener untuk mendeteksi scroll
     window.addEventListener("scroll", function() {
