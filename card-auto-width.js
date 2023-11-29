@@ -1,8 +1,16 @@
-document.addEventListener("DOMContentLoaded", function() {
-    var imgMainCard = document.querySelector('.imgMainCard');
-    var cardDesc = document.querySelector('.cardDesc');
+document.addEventListener("DOMContentLoaded", function () {
+    var mainCards = document.querySelectorAll('.mainCard');
 
-    if (imgMainCard && cardDesc) {
-        cardDesc.style.width = imgMainCard.offsetWidth + 'px';
+    function setCardDescSize(card) {
+        var imgMainCard = card.querySelector('.imgMainCard');
+        var cardDesc = card.querySelector('.cardDesc');
+
+        if (imgMainCard && cardDesc) {
+            cardDesc.style.width = imgMainCard.offsetWidth + 'px';
+        }
     }
+
+    mainCards.forEach(function (card) {
+        setCardDescSize(card);
+    });
 });
