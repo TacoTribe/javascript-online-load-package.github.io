@@ -1,15 +1,13 @@
-let currentSection = 1;
+ let currentSection = 1;
 
-function navigate(direction) {
-  document.getElementById(`section${currentSection}`).classList.remove('activeSection');
+  function navigate(direction) {
+    document.getElementById(`section${currentSection}`).classList.remove('activeSection');
 
-  const totalSections = document.querySelectorAll('.section').length;
+    if (direction === 'back') {
+      currentSection = Math.max(1, currentSection - 1);
+    } else if (direction === 'next') {
+      currentSection = Math.min(15, currentSection + 1);
+    }
 
-  if (direction === 'back') {
-    currentSection = (currentSection - 1 + totalSections) % totalSections || totalSections;
-  } else if (direction === 'next') {
-    currentSection = (currentSection % totalSections) + 1;
+    document.getElementById(`section${currentSection}`).classList.add('activeSection');
   }
-
-  document.getElementById(`section${currentSection}`).classList.add('activeSection');
-}
