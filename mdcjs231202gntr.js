@@ -45,13 +45,32 @@
       option.addEventListener('click', pilihLayer);
   });
 
-function gambarUtamaURL() {
+async function fetchMaxNumber() {
+    try {
+        const response = await fetch('https://tacotribe.github.io/javascript-online-load-package.github.io/max.json');
+        const data = await response.json();
+        return data.maxNumber;
+    } catch (error) {
+        console.error('Error fetching max number:', error);
+        return null;
+    }
+}
+
+async function gambarUtamaURL() {
     const inputGambarUtamaURL = document.getElementById('gambarUtamaURL');
     const loading = document.getElementById('loading');
+    
+    const maxNumber = await fetchMaxNumber();
+    
+    if (!maxNumber) {
+        alert('Failed to fetch max number. Please try again later.');
+        return;
+    }
+
     let nomor = parseInt(inputGambarUtamaURL.value.trim());
 
-    if (isNaN(nomor) || nomor < 1 || nomor > 4190) {
-        alert('Please input a valid number between 1 and 4190');
+    if (isNaN(nomor) || nomor < 1 || nomor > maxNumber) {
+        alert(`Please input a valid number between 1 and ${maxNumber}`);
         return;
     }
 
