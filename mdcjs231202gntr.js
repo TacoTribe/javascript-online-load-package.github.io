@@ -63,14 +63,14 @@ async function gambarUtamaURL() {
     const maxNumber = await fetchMaxNumber();
     
     if (!maxNumber) {
-        alert('Failed to fetch max number. Please try again later.');
+        alert('Failed to fetch max minted NFT. Please try again later.');
         return;
     }
 
     let nomor = parseInt(inputGambarUtamaURL.value.trim());
 
     if (isNaN(nomor) || nomor < 1 || nomor > maxNumber) {
-        alert(`Please input a valid number between 1 and ${maxNumber}`);
+        alert(`That NFT hasnt bee minted yet, come back later?`);
         return;
     }
 
