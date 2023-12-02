@@ -74,8 +74,8 @@ async function gambarUtamaURL() {
         return;
     }
 
-    const formattedNomor = nomor.toString().padStart(4, '0');
-    const namaFile = `file_${formattedNomor}.png`;
+    const formattedNomor = nomor.toString();
+    const namaFile = `${formattedNomor}.png`;
 
     const baseURL = 'https://bafybeicngxlex3olbwwof2xtfsjareztc7gnkt6z56eqvdqujuuodp2kji.ipfs.nftstorage.link/';
     const url = `${baseURL}${namaFile}`;
