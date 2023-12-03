@@ -23,7 +23,7 @@ async function loadImage(url) {
 
 async function fetchBaseURL() {
     try {
-        const response = await fetch('https://api-base-url.vercel.app/api/baseURL.php');
+        const response = await fetch('https://api-base-url.vercel.app/api/secure.php');
         const data = await response.json();
         baseURL = data.baseURL;
         return data.baseURL;
