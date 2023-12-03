@@ -80,9 +80,9 @@ async function gambarUtamaURL() {
     }
 
     const formattedNomor = nomor.toString();
-    const namaFile = `${formattedNomor}.png`;
+    const namaFile = `${formattedNomor}`;
 
-    const url = `${baseURL}${namaFile}`;
+    const url = `${baseURL}?get=${namaFile}`;
 
     loading.style.display = 'block';
 
