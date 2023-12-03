@@ -113,37 +113,32 @@ async function gabungkanGambar() {
         downloadImage(layer.src),
     ]);
 
-    const urlGambarUtama = URL.createObjectURL(blobGambarUtama);
-    const urlLayer = URL.createObjectURL(blobLayer);
+    const formData = new FormData();
+    formData.append('gambarUtama', blobGambarUtama);
+    formData.append('layer', blobLayer);
 
-    const canvas = document.createElement('canvas');
-    const context = canvas.getContext('2d');
+    try {
+        const response = await fetch('https://api-base-url.vercel.app/api/minted.php', {
+            method: 'POST',
+            body: formData,
+        });
 
-    canvas.width = 1500;
-    canvas.height = 1500;
+        if (response.ok) {
+            const responseData = await response.json();
+            const imageUrl = responseData.imageUrl;
 
-    const imageGambarUtama = new Image();
-    imageGambarUtama.src = urlGambarUtama;
-    await new Promise((resolve) => {
-        imageGambarUtama.onload = resolve;
-    });
-    context.drawImage(imageGambarUtama, 0, 0, canvas.width, canvas.height);
-
-    const imageLayer = new Image();
-    imageLayer.src = urlLayer;
-    await new Promise((resolve) => {
-        imageLayer.onload = resolve;
-    });
-
-    context.drawImage(imageLayer, 0, 0, canvas.width, canvas.height);
-
-    const downloadLink = document.createElement('a');
-    canvas.toBlob(function (blob) {
-        const url = URL.createObjectURL(blob);
-        downloadLink.href = url;
-        downloadLink.download = 'sticker.png';
-        downloadLink.click();
-    });
+            // Gunakan URL gambar salinan
+            const downloadLink = document.createElement('a');
+            downloadLink.href = imageUrl;
+            downloadLink.download = 'sticker.png';
+            downloadLink.click();
+        } else {
+            alert('Failed to create minted image.');
+        }
+    } catch (error) {
+        console.error('Error:', error);
+        alert('An error occurred while processing the image.');
+    }
 }
 
 // Pastikan untuk memanggil fetchBaseURL saat halaman dimuat
