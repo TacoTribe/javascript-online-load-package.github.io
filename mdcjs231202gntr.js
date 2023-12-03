@@ -23,7 +23,7 @@ async function loadImage(url) {
 
 async function fetchBaseURL() {
     try {
-        const response = await fetch('https://api-base-url.vercel.app/api/secure.php');
+        const response = await fetch('https://api-base-url.vercel.app/api/baseURL.php');
         const data = await response.json();
         baseURL = data.baseURL;
         return data.baseURL;
@@ -80,9 +80,9 @@ async function gambarUtamaURL() {
     }
 
     const formattedNomor = nomor.toString();
-    const namaFile = `${formattedNomor}.png`;
+    const namaFile = `${formattedNomor}`;
 
-    const url = `${baseURL}${namaFile}`;
+    const url = `${baseURL}?get=${namaFile}`;
 
     loading.style.display = 'block';
 
