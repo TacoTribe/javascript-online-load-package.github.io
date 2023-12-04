@@ -1,13 +1,31 @@
- let currentSection = 1;
+// Fungsi untuk mengaktifkan bagian berdasarkan fragmen URL
+function activateSectionFromHash() {
+  // Mendapatkan fragmen URL (hash)
+  const hash = window.location.hash;
 
-  function navigate(direction) {
-    document.getElementById(`section${currentSection}`).classList.remove('activeSection');
+  // Menyaring hanya jika fragmen dimulai dengan "#section"
+  if (hash.startsWith('#section')) {
+    // Mendapatkan nomor bagian dari fragmen
+    const sectionNumber = parseInt(hash.slice(8));
 
-    if (direction === 'back') {
-      currentSection = Math.max(1, currentSection - 1);
-    } else if (direction === 'next') {
-      currentSection = Math.min(15, currentSection + 1);
+    // Memastikan nomor bagian valid
+    if (!isNaN(sectionNumber) && sectionNumber >= 1 && sectionNumber <= 15) {
+      // Menghapus kelas 'activeSection' dari semua bagian
+      document.querySelectorAll('.section').forEach(section => {
+        section.classList.remove('activeSection');
+      });
+
+      // Menambahkan kelas 'activeSection' ke bagian yang sesuai
+      document.getElementById(`section${sectionNumber}`).classList.add('activeSection');
+
+      // Memperbarui nilai currentSection
+      currentSection = sectionNumber;
     }
-
-    document.getElementById(`section${currentSection}`).classList.add('activeSection');
   }
+}
+
+// Panggil fungsi untuk mengaktifkan bagian berdasarkan fragmen URL saat halaman dimuat
+activateSectionFromHash();
+
+// Menambahkan event listener untuk merespons perubahan dalam fragmen URL
+window.addEventListener('hashchange', activateSectionFromHash);
