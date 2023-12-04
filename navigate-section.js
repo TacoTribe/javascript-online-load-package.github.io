@@ -1,41 +1,34 @@
 let currentSection = 1;
 
-function navigate(direction) {
-  // Menghapus class activeSection dari semua elemen dengan class tersebut
-  const activeSections = document.querySelectorAll('.activeSection');
-  activeSections.forEach((section) => {
-    section.classList.remove('activeSection');
-  });
+  function navigate(direction) {
+    document.getElementById(`section${currentSection}`).classList.remove('activeSection');
 
-  if (direction === 'back') {
-    currentSection = Math.max(1, currentSection - 1);
-  } else if (direction === 'next') {
-    currentSection = Math.min(15, currentSection + 1);
+    if (direction === 'back') {
+      currentSection = Math.max(1, currentSection - 1);
+    } else if (direction === 'next') {
+      currentSection = Math.min(15, currentSection + 1);
+    }
+
+    document.getElementById(`section${currentSection}`).classList.add('activeSection');
   }
 
-  // Menambahkan class activeSection pada elemen dengan ID section{currentSection}
+  function getParameterByName(name, url) {
+    if (!url) url = window.location.href;
+    name = name.replace(/[\[\]]/g, '\\$&');
+    var regex = new RegExp('[?&]' + name + '(=([^&#]*)|&|#|$)'),
+        results = regex.exec(url);
+    if (!results) return null;
+    if (!results[2]) return '';
+    return decodeURIComponent(results[2].replace(/\+/g, ' '));
+  }
+
+  const sectionParam = getParameterByName('on');
+  if (sectionParam) {
+    const sectionNumber = parseInt(sectionParam);
+    if (!isNaN(sectionNumber) && sectionNumber >= 1 && sectionNumber <= 15) {
+      currentSection = sectionNumber;
+      navigate();
+    }
+  }
+
   document.getElementById(`section${currentSection}`).classList.add('activeSection');
-}
-
-// Memeriksa hash pada URL dan memperbarui currentSection
-window.addEventListener('hashchange', function () {
-  const hash = window.location.hash;
-  const sectionNumber = parseInt(hash.replace('#section', ''), 10);
-
-  if (!isNaN(sectionNumber) && sectionNumber >= 1 && sectionNumber <= 15) {
-    currentSection = sectionNumber;
-    navigate('next'); // Memastikan bahwa class activeSection diperbarui
-  }
-});
-
-// Memanggil fungsi navigate pada saat halaman pertama kali dimuat
-window.addEventListener('load', function () {
-  const hash = window.location.hash;
-  const sectionNumber = parseInt(hash.replace('#section', ''), 10);
-
-  if (!isNaN(sectionNumber) && sectionNumber >= 1 && sectionNumber <= 15) {
-    currentSection = sectionNumber;
-  }
-
-  navigate('next');
-});
