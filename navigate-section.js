@@ -1,31 +1,44 @@
-// Fungsi untuk mengaktifkan bagian berdasarkan fragmen URL
-function activateSectionFromHash() {
-  // Mendapatkan fragmen URL (hash)
-  const hash = window.location.hash;
+let currentSection = 1;
 
-  // Menyaring hanya jika fragmen dimulai dengan "#section"
-  if (hash.startsWith('#section')) {
-    // Mendapatkan nomor bagian dari fragmen
-    const sectionNumber = parseInt(hash.slice(8));
+function navigate(direction) {
+  // Mengecek apakah elemen dengan ID section{currentSection} memiliki class activeSection
+  const currentSectionElement = document.getElementById(`section${currentSection}`);
+  const isCurrentSectionActive = currentSectionElement.classList.contains('activeSection');
 
-    // Memastikan nomor bagian valid
-    if (!isNaN(sectionNumber) && sectionNumber >= 1 && sectionNumber <= 15) {
-      // Menghapus kelas 'activeSection' dari semua bagian
-      document.querySelectorAll('.section').forEach(section => {
-        section.classList.remove('activeSection');
-      });
-
-      // Menambahkan kelas 'activeSection' ke bagian yang sesuai
-      document.getElementById(`section${sectionNumber}`).classList.add('activeSection');
-
-      // Memperbarui nilai currentSection
-      currentSection = sectionNumber;
-    }
+  // Menghapus class activeSection jika elemen memiliki class tersebut
+  if (isCurrentSectionActive) {
+    currentSectionElement.classList.remove('activeSection');
   }
+
+  if (direction === 'back') {
+    currentSection = Math.max(1, currentSection - 1);
+  } else if (direction === 'next') {
+    currentSection = Math.min(15, currentSection + 1);
+  }
+
+  // Menambahkan class activeSection pada elemen dengan ID section{currentSection}
+  document.getElementById(`section${currentSection}`).classList.add('activeSection');
 }
 
-// Panggil fungsi untuk mengaktifkan bagian berdasarkan fragmen URL saat halaman dimuat
-activateSectionFromHash();
+// Memeriksa hash pada URL dan memperbarui currentSection
+window.addEventListener('hashchange', function () {
+  const hash = window.location.hash;
+  const sectionNumber = parseInt(hash.replace('#section', ''), 10);
 
-// Menambahkan event listener untuk merespons perubahan dalam fragmen URL
-window.addEventListener('hashchange', activateSectionFromHash);
+  if (!isNaN(sectionNumber) && sectionNumber >= 1 && sectionNumber <= 15) {
+    currentSection = sectionNumber;
+    navigate('next'); // Memastikan bahwa class activeSection diperbarui
+  }
+});
+
+// Memanggil fungsi navigate pada saat halaman pertama kali dimuat
+window.addEventListener('load', function () {
+  const hash = window.location.hash;
+  const sectionNumber = parseInt(hash.replace('#section', ''), 10);
+
+  if (!isNaN(sectionNumber) && sectionNumber >= 1 && sectionNumber <= 15) {
+    currentSection = sectionNumber;
+  }
+
+  navigate('next');
+});
