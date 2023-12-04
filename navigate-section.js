@@ -1,14 +1,11 @@
 let currentSection = 1;
 
 function navigate(direction) {
-  // Mengecek apakah elemen dengan ID section{currentSection} memiliki class activeSection
-  const currentSectionElement = document.getElementById(`section${currentSection}`);
-  const isCurrentSectionActive = currentSectionElement.classList.contains('activeSection');
-
-  // Menghapus class activeSection jika elemen memiliki class tersebut
-  if (isCurrentSectionActive) {
-    currentSectionElement.classList.remove('activeSection');
-  }
+  // Menghapus class activeSection dari semua elemen dengan class tersebut
+  const activeSections = document.querySelectorAll('.activeSection');
+  activeSections.forEach((section) => {
+    section.classList.remove('activeSection');
+  });
 
   if (direction === 'back') {
     currentSection = Math.max(1, currentSection - 1);
