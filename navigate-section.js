@@ -1,4 +1,4 @@
-let currentSection = 1;
+  let currentSection = 1;
 
   function navigate(direction) {
     document.getElementById(`section${currentSection}`).classList.remove('activeSection');
@@ -22,13 +22,15 @@ let currentSection = 1;
     return decodeURIComponent(results[2].replace(/\+/g, ' '));
   }
 
-  const sectionParam = getParameterByName('on');
-  if (sectionParam) {
-    const sectionNumber = parseInt(sectionParam);
-    if (!isNaN(sectionNumber) && sectionNumber >= 1 && sectionNumber <= 15) {
-      currentSection = sectionNumber;
-      navigate();
+  document.addEventListener('DOMContentLoaded', function() {
+    const sectionParam = getParameterByName('on');
+    if (sectionParam) {
+      const sectionNumber = parseInt(sectionParam);
+      if (!isNaN(sectionNumber) && sectionNumber >= 1 && sectionNumber <= 15) {
+        currentSection = sectionNumber;
+        navigate();
+      }
     }
-  }
 
-  document.getElementById(`section${currentSection}`).classList.add('activeSection');
+    document.getElementById(`section${currentSection}`).classList.add('activeSection');
+  });
