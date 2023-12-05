@@ -26,7 +26,7 @@ document.addEventListener('DOMContentLoaded', function () {
   });
 
   // Add event listener to each navigation link
-  document.querySelectorAll('.subnavigasiLinks').forEach(function (link) {
+  document.querySelectorAll('.subNavigasiLinksNew').forEach(function (link) {
     link.addEventListener('click', function (event) {
       event.preventDefault();
       const targetSection = parseInt(this.getAttribute('href').replace('#section', '')) || 1;
