@@ -1,43 +1,40 @@
 let currentSection = 1;
 
-function navigate(direction, targetSection) {
-  const sectionElement = document.getElementById(`section${currentSection}`);
-  sectionElement.classList.remove('activeSection');
-
-  switch (direction) {
-    case 'back':
-      currentSection = Math.max(1, currentSection - 1);
-      break;
-    case 'next':
-      currentSection = Math.min(15, currentSection + 1);
-      break;
-    case 'goto':
-      currentSection = targetSection;
-      break;
-    default:
-      break;
-  }
-
-  const newSectionElement = document.getElementById(`section${currentSection}`);
-  newSectionElement.classList.add('activeSection');
+function navigateToSection(targetSection) {
+  document.getElementById(`section${currentSection}`).classList.remove('activeSection');
+  currentSection = targetSection;
+  document.getElementById(`section${currentSection}`).classList.add('activeSection');
 }
 
-function handleLinkClick(event) {
-  event.preventDefault();
-  const targetSection = parseInt(this.getAttribute('href').replace('#section', ''));
-  navigate('goto', targetSection);
+function navigate(direction) {
+  document.getElementById(`section${currentSection}`).classList.remove('activeSection');
+
+  if (direction === 'back') {
+    currentSection = Math.max(1, currentSection - 1);
+  } else if (direction === 'next') {
+    currentSection = Math.min(15, currentSection + 1);
+  }
+
+  document.getElementById(`section${currentSection}`).classList.add('activeSection');
 }
 
 document.addEventListener('DOMContentLoaded', function () {
-  // Add event listener to each navigation link
-  document.querySelectorAll('.subnavigasiLinks').forEach(function (link) {
-    link.addEventListener('click', handleLinkClick);
+  // Add event listener to hashchange
+  window.addEventListener('hashchange', function () {
+    const targetSection = parseInt(window.location.hash.replace('#section', '')) || 1;
+    navigateToSection(targetSection);
   });
 
-  // Check if there is a section ID in the URL and navigate to that section
-  const urlHash = window.location.hash;
-  if (urlHash && urlHash.startsWith('#section')) {
-    const targetSection = parseInt(urlHash.replace('#section', ''));
-    navigate('goto', targetSection);
-  }
+  // Add event listener to each navigation link
+  document.querySelectorAll('.subnavigasiLinks').forEach(function (link) {
+    link.addEventListener('click', function (event) {
+      event.preventDefault();
+      const targetSection = parseInt(this.getAttribute('href').replace('#section', '')) || 1;
+      window.location.hash = `section${targetSection}`;
+    });
+  });
+
+  // Initial navigation based on hash
+  const initialTargetSection = parseInt(window.location.hash.replace('#section', '')) || 1;
+  navigateToSection(initialTargetSection);
 });
