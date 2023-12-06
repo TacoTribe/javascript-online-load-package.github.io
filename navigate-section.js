@@ -4,6 +4,7 @@ function navigateToSection(targetSection) {
   document.getElementById(`section${currentSection}`).classList.remove('activeSection');
   currentSection = targetSection;
   document.getElementById(`section${currentSection}`).classList.add('activeSection');
+  scrollToTop();
 }
 
 function navigate(direction) {
@@ -16,6 +17,14 @@ function navigate(direction) {
   }
 
   document.getElementById(`section${currentSection}`).classList.add('activeSection');
+  scrollToTop();
+}
+
+function scrollToTop() {
+  window.scrollTo({
+    top: 0,
+    behavior: 'smooth'
+  });
 }
 
 document.addEventListener('DOMContentLoaded', function () {
