@@ -26,7 +26,8 @@ function toggleMode(mode) {
 }
 
 document.addEventListener('DOMContentLoaded', function() {
-  toggleMode('light');
+  // Defaultnya menggunakan dark mode
+  toggleMode('dark');
 });
 
 // Menambahkan event listener untuk masing-masing span
