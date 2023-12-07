@@ -41,7 +41,7 @@ function toggleMode(mode) {
 
 document.addEventListener('DOMContentLoaded', function() {
   // Memuat mode dari local storage atau menggunakan 'light' sebagai default
-  const preferredMode = loadModeFromStorage() || 'light';
+  const preferredMode = loadModeFromStorage() || 'dark';
   toggleMode(preferredMode);
 });
 
