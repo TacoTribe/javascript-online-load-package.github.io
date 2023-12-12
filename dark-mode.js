@@ -1,10 +1,6 @@
 // Fungsi untuk menyimpan mode ke local storage
 function saveModeToStorage(mode) {
-  try {
-    localStorage.setItem('preferredMode', mode);
-  } catch (e) {
-    console.error('Unable to save to localStorage:', e);
-  }
+  localStorage.setItem('preferredMode', mode);
 }
 
 // Fungsi untuk memuat mode dari local storage
