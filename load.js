@@ -5,11 +5,14 @@
         "https://tacotribe.github.io/javascript-online-load-package.github.io/load-metatag-viewport.js",
         "https://tacotribe.github.io/javascript-online-load-package.github.io/nav-border-dekstop.js",
         "https://tacotribe.github.io/javascript-online-load-package.github.io/nav-border-mobile.js",
-        "https://tacotribe.github.io/javascript-online-load-package.github.io/navigate-section.js"
+        "https://tacotribe.github.io/javascript-online-load-package.github.io/navigate-section.js",
+        "https://code.jquery.com/jquery-3.7.1.js" // jQuery
     ];
 
     var stylesheets = [
-        "https://tacotribe.github.io/css-code-package.github.io/main.css"
+        "https://tacotribe.github.io/css-code-package.github.io/main.css",
+        "https://fonts.googleapis.com/icon?family=Material+Icons",
+        "https://kit.fontawesome.com/d59547203e.js" // Font Awesome
     ];
 
     function loadScript(url, callback) {
