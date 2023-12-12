@@ -1,59 +1,3 @@
-// Script 1
-async function createElementsFromJson(data) {
-    const container = document.getElementById('layersGeneratorsContainer');
-
-    for (const item of data) {
-        const optionMain = document.createElement('div');
-        optionMain.classList.add('OptionMain');
-
-        const imgOption = document.createElement('div');
-        imgOption.classList.add('imgOption');
-
-        const img = document.createElement('img');
-        img.classList.add('layersGeneratorOption');
-        img.src = item.imageUrl;
-
-        imgOption.appendChild(img);
-
-        const descriptionGenera = document.createElement('div');
-        descriptionGenera.classList.add('descriptionGenera');
-
-        const descriptionSpan = document.createElement('span');
-        descriptionSpan.textContent = item.description;
-
-        descriptionGenera.appendChild(descriptionSpan);
-
-        optionMain.appendChild(imgOption);
-        optionMain.appendChild(descriptionGenera);
-
-        container.appendChild(optionMain);
-    }
-}
-
-async function fetchDataAndCreateElements() {
-    try {
-        const response = await fetch('https://tacotribe.github.io/tacotribeoverlay.github.io/exportOverlay.json');
-        const jsonData = await response.json();
-        await createElementsFromJson(jsonData);
-
-        // Setelah script 1 dijalankan, panggil script 2
-        await fetchBaseURL();
-
-        // ... (Bagian lain dari kode JavaScript Anda)
-
-        var links = document.querySelectorAll('a.downloadSticker');
-        links.forEach(function (link) {
-            link.setAttribute('onclick', 'gabungkanGambar()');
-        });
-    } catch (error) {
-        console.error('Error fetching JSON:', error);
-    }
-}
-
-// Call the function to fetch data and create elements
-fetchDataAndCreateElements();
-
-// Script 2
 const imageCache = {};
 let baseURL; // Menyimpan baseURL yang diambil dari server
 
@@ -205,4 +149,11 @@ async function gabungkanGambar() {
 // Pastikan untuk memanggil fetchBaseURL saat halaman dimuat
 window.addEventListener('load', function () {
     fetchBaseURL();
+    
+    // ... (Bagian lain dari kode JavaScript Anda)
+
+    var links = document.querySelectorAll('a.downloadSticker');
+    links.forEach(function (link) {
+        link.setAttribute('onclick', 'gabungkanGambar()');
+    });
 });
