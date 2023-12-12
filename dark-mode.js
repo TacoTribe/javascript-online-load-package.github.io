@@ -3,7 +3,7 @@ function saveModeToStorage(mode) {
 }
 
 function loadModeFromStorage() {
-  return localStorage.getItem('preferredMode');
+  return localStorage.getItem('preferredMode') || 'dark';
 }
 
 function applyMode(mode) {
@@ -32,7 +32,7 @@ function toggleMode() {
 }
 
 document.addEventListener('DOMContentLoaded', function() {
-  const preferredMode = loadModeFromStorage() || 'dark';
+  const preferredMode = loadModeFromStorage();
   applyMode(preferredMode);
 });
 
