@@ -1,6 +1,7 @@
 // load.js
 (function() {
     var scripts = [
+        "https://tacotribe.github.io/javascript-online-load-package.github.io/dark-mode.js",
         "https://tacotribe.github.io/javascript-online-load-package.github.io/mdcjs231202gntr.js",
         "https://tacotribe.github.io/javascript-online-load-package.github.io/load-metatag-viewport.js",
         "https://tacotribe.github.io/javascript-online-load-package.github.io/nav-border-dekstop.js",
