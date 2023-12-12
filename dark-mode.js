@@ -1,39 +1,59 @@
-const body = document.body;
-const darkModeSwitch = document.getElementById('darkModeSwitch');
-const whiteModeSwitch = document.getElementById('whiteModeSwitch');
-
+// Fungsi untuk menyimpan mode ke local storage
 function saveModeToStorage(mode) {
-  localStorage.setItem('preferredMode', mode);
+  try {
+    localStorage.setItem('preferredMode', mode);
+  } catch (e) {
+    console.error('Unable to save to localStorage:', e);
+  }
 }
 
+// Fungsi untuk memuat mode dari local storage
 function loadModeFromStorage() {
-  return localStorage.getItem('preferredMode') || 'dark';
+  return localStorage.getItem('preferredMode');
 }
 
-function applyMode(mode) {
-  const isDarkMode = mode === 'dark';
+function toggleMode(mode) {
+  const body = document.body;
+  const darkModeSwitch = document.getElementById('darkModeSwitch');
+  const whiteModeSwitch = document.getElementById('whiteModeSwitch');
 
-  body.classList.toggle('dark-mode', isDarkMode);
-  darkModeSwitch.style.display = isDarkMode ? 'none' : 'inline-block';
-  whiteModeSwitch.style.display = isDarkMode ? 'inline-block' : 'none';
-
-  saveModeToStorage(mode);
-}
-
-function toggleMode() {
-  const currentMode = body.classList.contains('dark-mode') ? 'dark' : 'light';
-  const newMode = currentMode === 'dark' ? 'light' : 'dark';
-  applyMode(newMode);
+  if (mode === 'dark') {
+    body.classList.add('dark-mode');
+    darkModeSwitch.style.display = 'none';
+    whiteModeSwitch.style.display = 'inline-block';
+    saveModeToStorage('dark');
+  } else if (mode === 'light') {
+    body.classList.remove('dark-mode');
+    darkModeSwitch.style.display = 'inline-block';
+    whiteModeSwitch.style.display = 'none';
+    saveModeToStorage('light');
+  } else if (mode === 'toggle') {
+    // Toggle between dark and light modes
+    if (body.classList.contains('dark-mode')) {
+      body.classList.remove('dark-mode');
+      darkModeSwitch.style.display = 'inline-block';
+      whiteModeSwitch.style.display = 'none';
+      saveModeToStorage('light');
+    } else {
+      body.classList.add('dark-mode');
+      darkModeSwitch.style.display = 'none';
+      whiteModeSwitch.style.display = 'inline-block';
+      saveModeToStorage('dark');
+    }
+  }
 }
 
 document.addEventListener('DOMContentLoaded', function() {
-  const preferredMode = loadModeFromStorage();
-  applyMode(preferredMode);
+  // Memuat mode dari local storage atau menggunakan 'light' sebagai default
+  const preferredMode = loadModeFromStorage() || 'dark';
+  toggleMode(preferredMode);
 });
 
-// Use a common parent element or body for event delegation
-document.body.addEventListener('click', function(event) {
-  if (event.target === darkModeSwitch || event.target === whiteModeSwitch) {
-    toggleMode();
-  }
+// Menambahkan event listener untuk masing-masing span
+document.getElementById('darkModeSwitch').addEventListener('click', function() {
+  toggleMode('toggle');
+});
+
+document.getElementById('whiteModeSwitch').addEventListener('click', function() {
+  toggleMode('toggle');
 });
