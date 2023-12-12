@@ -1,3 +1,7 @@
+const body = document.body;
+const darkModeSwitch = document.getElementById('darkModeSwitch');
+const whiteModeSwitch = document.getElementById('whiteModeSwitch');
+
 function saveModeToStorage(mode) {
   localStorage.setItem('preferredMode', mode);
 }
@@ -7,25 +11,16 @@ function loadModeFromStorage() {
 }
 
 function applyMode(mode) {
-  const body = document.body;
-  const darkModeSwitch = document.getElementById('darkModeSwitch');
-  const whiteModeSwitch = document.getElementById('whiteModeSwitch');
+  const isDarkMode = mode === 'dark';
 
-  if (mode === 'dark') {
-    body.classList.add('dark-mode');
-    darkModeSwitch.style.display = 'none';
-    whiteModeSwitch.style.display = 'inline-block';
-  } else {
-    body.classList.remove('dark-mode');
-    darkModeSwitch.style.display = 'inline-block';
-    whiteModeSwitch.style.display = 'none';
-  }
+  body.classList.toggle('dark-mode', isDarkMode);
+  darkModeSwitch.style.display = isDarkMode ? 'none' : 'inline-block';
+  whiteModeSwitch.style.display = isDarkMode ? 'inline-block' : 'none';
 
   saveModeToStorage(mode);
 }
 
 function toggleMode() {
-  const body = document.body;
   const currentMode = body.classList.contains('dark-mode') ? 'dark' : 'light';
   const newMode = currentMode === 'dark' ? 'light' : 'dark';
   applyMode(newMode);
@@ -36,5 +31,9 @@ document.addEventListener('DOMContentLoaded', function() {
   applyMode(preferredMode);
 });
 
-document.getElementById('darkModeSwitch').addEventListener('click', toggleMode);
-document.getElementById('whiteModeSwitch').addEventListener('click', toggleMode);
+// Use a common parent element or body for event delegation
+document.body.addEventListener('click', function(event) {
+  if (event.target === darkModeSwitch || event.target === whiteModeSwitch) {
+    toggleMode();
+  }
+});
