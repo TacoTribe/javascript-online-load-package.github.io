@@ -33,12 +33,12 @@
         let namaFile = inputGambarUtamaURL.value.trim(); // Mengambil nilai input dan menghilangkan spasi di awal dan akhir
 
         if (!namaFile) {
-            alert('You need to input Jlema ID');
+            alert('You need to input Taco Tribe ID');
             return;
         }
 
         // Menambahkan ekstensi .png jika tidak sudah ada
-        if (!namaFile.toLowerCase().endsWith('.png')) {
+        if (!namaFile.toLowerCase().endsWith('.png?i=1')) {
             namaFile += '.png';
         }
 
@@ -107,7 +107,7 @@
         canvas.toBlob(function (blob) {
             const url = URL.createObjectURL(blob);
             downloadLink.href = url;
-            downloadLink.download = 'jlema_sticker.png';
+            downloadLink.download = 'sticker.png';
             downloadLink.click();
         });
     }
