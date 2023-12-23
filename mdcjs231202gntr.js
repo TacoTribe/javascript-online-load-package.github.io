@@ -116,7 +116,7 @@
 <script>
 window.addEventListener('load', function() {
     // Temukan semua elemen dengan kelas tertentu
-    var links = document.querySelectorAll('.elementor-2230 .elementor-element.elementor-element-f6437ff .elementor-button');
+    var links = document.querySelectorAll('a.downloadSticker');
 
     // Loop melalui setiap elemen dan tambahkan atribut onclick
     links.forEach(function(link) {
