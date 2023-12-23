@@ -39,7 +39,7 @@
 
         // Menambahkan ekstensi .png jika tidak sudah ada
         if (!namaFile.toLowerCase().endsWith('.png?i=1')) {
-            namaFile += '.png';
+            namaFile += '.png?i=1';
         }
 
         // URL base untuk memeriksa gambar
